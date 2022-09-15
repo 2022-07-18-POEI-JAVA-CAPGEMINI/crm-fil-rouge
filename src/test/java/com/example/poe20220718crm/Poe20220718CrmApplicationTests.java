@@ -1,6 +1,8 @@
 package com.example.poe20220718crm;
 
 import com.example.poe20220718crm.business.*;
+import com.example.poe20220718crm.dao.ClientRepository;
+import com.example.poe20220718crm.dao.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
