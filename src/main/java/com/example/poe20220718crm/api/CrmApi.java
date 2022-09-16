@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
@@ -49,6 +50,21 @@ public class CrmApi {
         catch(EmptyResultDataAccessException e) {
             System.out.println("id inexistant dans deleteOrder()");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("id inexistant");
+        }
+    }
+
+    @PutMapping("orders/{id}")
+    public ResponseEntity<String> updateOrder(@PathVariable("id") Long id, @RequestBody Order order){
+        if(!id.equals(order.getId())){
+            return ResponseEntity.badRequest().body("les id ne sont pas identiques");
+        } else {
+            Optional<Order> op = crmService.findOrderById(id);
+            if(op.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("id not found");
+            } else {
+                crmService.updateOrder(order);
+                return ResponseEntity.ok().build();
+            }
         }
     }
 }

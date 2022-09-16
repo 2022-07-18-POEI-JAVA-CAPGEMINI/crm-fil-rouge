@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CrmService {
@@ -28,9 +29,14 @@ public class CrmService {
 
         clientRepository.save(newClient);
     }
+    
 
     public List<Order> findAllOrders() {
         return orderRepository.findAll();
+    }
+
+    public Optional<Order> findOrderById(Long id){
+        return orderRepository.findById(id);
     }
 
     public void saveOrder(Order newOrder) {
@@ -39,5 +45,9 @@ public class CrmService {
 
     public void deleteOrder(Long id) throws EmptyResultDataAccessException {
             orderRepository.deleteById(id);
+    }
+
+    public void updateOrder(Order order) {
+            orderRepository.save(order);
     }
 }
