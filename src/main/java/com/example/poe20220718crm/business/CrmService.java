@@ -3,6 +3,7 @@ package com.example.poe20220718crm.business;
 import com.example.poe20220718crm.dao.ClientRepository;
 import com.example.poe20220718crm.dao.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,5 +35,9 @@ public class CrmService {
 
     public void saveOrder(Order newOrder) {
         orderRepository.save(newOrder);
+    }
+
+    public void deleteOrder(Long id) throws EmptyResultDataAccessException {
+            orderRepository.deleteById(id);
     }
 }
