@@ -21,6 +21,9 @@ public class CrmService {
     public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
+    public Optional<Client> findClientById(Long id) {
+        return clientRepository.findById(id);
+    }
 
     public void saveClient(Client newClient) {
         // par sécurité on vire l'id pour pas permettre la modification de
@@ -29,7 +32,16 @@ public class CrmService {
 
         clientRepository.save(newClient);
     }
-    
+
+    public void deleteClient(Long id){
+        clientRepository.deleteById(id);
+    }
+
+    public void updateClient(Client client){
+        clientRepository.save(client);
+    }
+
+    /*********************************/
 
     public List<Order> findAllOrders() {
         return orderRepository.findAll();
@@ -50,4 +62,5 @@ public class CrmService {
     public void updateOrder(Order order) {
             orderRepository.save(order);
     }
+
 }

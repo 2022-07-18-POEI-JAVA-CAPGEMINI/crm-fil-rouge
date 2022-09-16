@@ -30,6 +30,29 @@ public class CrmApi {
         crmService.saveClient(newClient);
     }
 
+    @DeleteMapping("clients/{id}")
+    public void deleteClient(@PathVariable("id") Long id){
+        crmService.deleteClient(id);
+    }
+
+    @PutMapping("clients/{id}")
+    public ResponseEntity<String> updateClient(@PathVariable("id") Long id, @RequestBody Client client){
+        if(!id.equals(client.getId())){
+            return ResponseEntity.badRequest().body("les id ne sont pas identiques");
+        } else {
+            Optional<Client> op = crmService.findClientById(id);
+            if(op.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("id not found");
+            } else {
+                crmService.updateClient(client);
+                return ResponseEntity.ok().build();
+            }
+        }
+    }
+
+
+    /****************************************/
+
     @GetMapping("orders")
     public List<Order> getAllOrders() {
 
