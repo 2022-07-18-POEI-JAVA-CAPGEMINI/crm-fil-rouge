@@ -1,6 +1,7 @@
 package com.example.poe20220718crm.business;
 
 import com.example.poe20220718crm.dao.ClientRepository;
+import com.example.poe20220718crm.dao.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ public class CrmService {
     @Autowired
     ClientRepository clientRepository;
 
+    @Autowired
+    OrderRepository orderRepository;
+
     public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
@@ -22,5 +26,13 @@ public class CrmService {
         newClient.setId(null);
 
         clientRepository.save(newClient);
+    }
+
+    public List<Order> findAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    public void saveOrder(Order newOrder) {
+        orderRepository.save(newOrder);
     }
 }
