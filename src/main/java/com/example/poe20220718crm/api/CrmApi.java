@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +21,14 @@ public class CrmApi {
     CrmService crmService;
 
     @GetMapping("clients")
-    public List<Client> getAllClients() {
+    public List<ClientDTO> getAllClients() {
 
-        return crmService.findAllClients();
+        List<Client> clients = crmService.findAllClients();
+        List<ClientDTO> dtos = new ArrayList<>();
+        for(Client client : clients){
+            dtos.add(ClientMapper.convertEntityToDTO(client));
+        }
+        return dtos;
     }
 
     @PostMapping("clients")
@@ -54,14 +60,21 @@ public class CrmApi {
     /****************************************/
 
     @GetMapping("orders")
-    public List<Order> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
 
-        return crmService.findAllOrders();
+         List<Order> orders = crmService.findAllOrders();
+
+         List<OrderDTO> dtos = new ArrayList<>();
+         for(Order order: orders){
+             dtos.add(OrderMapper.convertEntityToDTO(order));
+         }
+
+         return dtos;
     }
 
     @PostMapping("orders")
-    public void createOrder(@RequestBody Order newOrder){
-        crmService.saveOrder(newOrder);
+    public void createOrder(@RequestBody OrderDTO newOrder){
+        crmService.saveOrder(OrderMapper.convertDTOToEntity(newOrder));
     }
 
     @DeleteMapping("orders/{id}")
@@ -95,6 +108,7 @@ public class CrmApi {
     // http://localhost:8080/api/searchOrdersByClient?client=1
     @GetMapping("searchOrdersByClient")
     public List<Order> findAllOrdersByClient(@RequestParam("client") Client client){
+        System.out.println(client);
         return crmService.findAllOrdersByClient(client);
     }
 }

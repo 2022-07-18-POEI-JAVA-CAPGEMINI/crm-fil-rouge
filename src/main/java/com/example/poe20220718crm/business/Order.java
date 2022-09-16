@@ -1,6 +1,8 @@
 package com.example.poe20220718crm.business;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
