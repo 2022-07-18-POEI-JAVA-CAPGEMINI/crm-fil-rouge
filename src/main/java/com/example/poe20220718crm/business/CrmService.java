@@ -63,4 +63,8 @@ public class CrmService {
             orderRepository.save(order);
     }
 
+
+    public List<Order> findAllOrdersByClient(Client client){
+        return orderRepository.findAllByClient(client);
+    }
 }

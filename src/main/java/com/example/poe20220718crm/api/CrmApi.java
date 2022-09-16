@@ -90,4 +90,11 @@ public class CrmApi {
             }
         }
     }
+
+
+    // http://localhost:8080/api/searchOrdersByClient?client=1
+    @GetMapping("searchOrdersByClient")
+    public List<Order> findAllOrdersByClient(@RequestParam("client") Client client){
+        return crmService.findAllOrdersByClient(client);
+    }
 }
